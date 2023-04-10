@@ -1,88 +1,49 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import Display from './Display';
+import Display from './DisplayName';
 import uniqid from "uniqid";
 
 class Schooling extends Component {
-  constructor() {
-    super();
-
-    /* A section to add your educational experience (school name, title of study, date of study) */
+  constructor(props) {
+    super(props);
 
     this.state = {
-      school: "",
-      study: "",
-      start: "",
-      end: "",
-      final: [],
+      schoolStartDate: "",
+      schoolEndDate: "",
     }
+    
+    this.schoolHandleChange = this.schoolHandleChange.bind(this);
+    this.studyHandleChange = this.studyHandleChange.bind(this);
+    this.schoolStartHandleChange = this.schoolStartHandleChange.bind(this);
+    this.schoolEndHandleChange = this.schoolEndHandleChange.bind(this);
   }
 
   schoolHandleChange = (e) => {
-    this.setState({
-        school: e.target.value,
-    })
+    this.props.onSchoolChange(e.target.value);
   }
 
   studyHandleChange = (e) => {
-    this.setState({
-        study: e.target.value,
-    })
+    this.props.onStudyChange(e.target.value);
   }
 
-  startHandleChange = (e) => {
+  schoolStartHandleChange = (e) => {
+    this.props.onSchoolStartChange(e);
     this.setState({
-        start: e,
-    })
+      schoolStartDate: e,
+    }, () => {console.log(this.state.schoolStartDate)});
   }
 
-  endHandleChange = (e) => {
+  schoolEndHandleChange = (e) => {
+    this.props.onSchoolEndChange(e);
     this.setState({
-        end: e,
-    })
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    let startStrSplit = this.state.start.toString().split(" ");
-    let endStrSplit = this.state.end.toString().split(" ");
-    let startStr = startStrSplit.slice(1,4);
-    let startStrHolder = "";
-    startStr.forEach(el => {
-        let str = el.toString();
-        if (typeof str === "number") {
-            str = Number(str);/* elim leading zero */
-        }
-        startStrHolder = startStrHolder + str + " ";
-    })
-    let endStr = endStrSplit.slice(1,4);
-    let endStrHolder = "";
-    endStr.forEach(el => {
-        let str = el.toString();
-        if (typeof str === "number") {
-            str = Number(str);/* elim leading zero */
-        }
-        endStrHolder = endStrHolder + str + " ";
-    })
-
-    this.setState({
-        school: "",
-        study: "",
-        start: "",
-        end: "",
-        final: this.state.final.concat({
-            school: this.state.school,
-            study: this.state.study,
-            start: startStrHolder,
-            end: endStrHolder,
-            id: uniqid(),
-        })
-    })
+      schoolEndDate: e,
+    }, () => {console.log(this.state.schoolEndDate)});
   }
 
   render() {
-    const { school, study, start, end, final } = this.state;
+    const school = this.props.school;
+    const study = this.props.study;
 
     return (
       <div  className="outer">
@@ -97,20 +58,12 @@ class Schooling extends Component {
                     <label htmlFor="studyInput">Title of Study</label>
                     <input type="text" id="studyInput" value={study} onChange={this.studyHandleChange}/>
                     <label htmlFor="startInput">Start Date</label>
-                    <DatePicker showIcon selected={start} onChange={this.startHandleChange} />
+                    <DatePicker showIcon selected={this.state.schoolStartDate} onChange={this.schoolStartHandleChange} />
                     <label htmlFor="endInput">End Date</label>
-                    <DatePicker showIcon selected={end} onChange={this.endHandleChange} />
+                    <DatePicker showIcon selected={this.state.schoolEndDate} onChange={this.schoolEndHandleChange} />
                 </div>
             </div>
-            
-          <button type="submit" onClick={this.onSubmit}>
-            Add Education
-          </button>
         </form>
-
-        <div className="displayArea">
-          <Display tasks={final}/>
-        </div>
       </div>
     )
   }

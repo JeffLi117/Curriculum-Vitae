@@ -1,53 +1,45 @@
 import React, { Component } from 'react';
 
 class GenForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      name: "",
-      email: "",
-      phone: "",
-      final: {
-        name: "",
-        email: "",
-        phone: "",
-      }
-    }
+    this.userNameHandleChange = this.userNameHandleChange.bind(this);
+    this.emailHandleChange = this.emailHandleChange.bind(this);
+    this.phoneHandleChange = this.phoneHandleChange.bind(this);
   }
 
-  nameHandleChange = (e) => {
-    this.setState({
-      name: e.target.value,
-    })
+  userNameHandleChange = (e) => {
+    this.props.onUserNameChange(e.target.value);
   }
 
   emailHandleChange = (e) => {
-    this.setState({
-      email: e.target.value,
-    })
+    this.props.onEmailChange(e.target.value);
   }
 
   phoneHandleChange = (e) => {
-    this.setState({
-        phone: e.target.value,
-    })
+    this.props.onPhoneChange(e.target.value);
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.setState({
-        final: {
-            name: this.state.name,
-            email: this.state.email,
-            phone: this.state.phone,
-        }
-    })
+  componentDidUpdate(prevProps) {
+    console.log("this.props.userName", this.props.reverseName);
+    console.log("this ", this.props);
+    console.log("prevprops ", prevProps);
+    // Typical usage (don't forget to compare props):
+    if (this.props.userName !== prevProps.userName || this.props.email !== prevProps.email || this.props.phone !== prevProps.phone) {
+      console.log("Something changed!")
+      /* this.setState({
+        userName: "",
+        email: "",
+        phone: "",
+      }) */
+    }
   }
 
-  /* A section to add general information like name, email, phone number */
   render() {
-    const { name, email, phone } = this.state;
+    const userName = this.props.userName;
+    const email = this.props.email;
+    const phone = this.props.phone;
 
     return (
       <div className="outer">
@@ -58,15 +50,12 @@ class GenForm extends Component {
             </div>
             <div className="cols">
                 <label htmlFor="nameInput">Name</label>
-                <input type="text" id="nameInput" value={name.text} onChange={this.nameHandleChange}/>
+                <input type="text" id="nameInput" value={userName} onChange={this.userNameHandleChange}/>
                 <label htmlFor="emailInput">Email</label>
-                <input type="text" id="emailInput" value={email.text} onChange={this.emailHandleChange}/>
+                <input type="text" id="emailInput" value={email} onChange={this.emailHandleChange}/>
                 <label htmlFor="phoneInput">Phone Number</label>
-                <input type="text" id="phoneInput" value={phone.text} onChange={this.phoneHandleChange}/>
+                <input type="text" id="phoneInput" value={phone} onChange={this.phoneHandleChange}/>
             </div>
-          <button type="submit" onClick={this.onSubmit}>
-            Save General Information
-          </button>
         </form>
       </div>
     )
