@@ -21,21 +21,6 @@ class GenForm extends Component {
     this.props.onPhoneChange(e.target.value);
   }
 
-  componentDidUpdate(prevProps) {
-    console.log("this.props.userName", this.props.reverseName);
-    console.log("this ", this.props);
-    console.log("prevprops ", prevProps);
-    // Typical usage (don't forget to compare props):
-    if (this.props.userName !== prevProps.userName || this.props.email !== prevProps.email || this.props.phone !== prevProps.phone) {
-      console.log("Something changed!")
-      /* this.setState({
-        userName: "",
-        email: "",
-        phone: "",
-      }) */
-    }
-  }
-
   render() {
     const userName = this.props.userName;
     const email = this.props.email;
@@ -45,7 +30,7 @@ class GenForm extends Component {
       <div className="outer">
         
         <form>
-            <div className="description">
+            <div className="description topForms">
                 General
             </div>
             <div className="cols">
