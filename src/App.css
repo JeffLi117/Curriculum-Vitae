@@ -53,10 +53,13 @@ div#root {
 }
 
 div.overall {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     height: 100%;
+    width: 100%;
 }
 
 div.formHolder {
@@ -83,6 +86,10 @@ div.top {
     display: flex;
     justify-content: center;
     gap: 0.4rem;
+}
+
+div.top, div.middleToCV, div.displayCV {
+    width: 75%;
 }
 
 div.outer {
@@ -131,6 +138,28 @@ div.eachEduHolder {
     flex-direction: row;
     justify-content: space-between;
     gap: 1.5rem;
+}
+
+div.editEduHolder {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 2rem;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    background: rgb(0,0,0,0.4);
+    z-index: 15;
+}
+
+li.editingEdu {
+    background: rgb(0,0,0,0.2);
 }
 
 div.eduRight {

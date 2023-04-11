@@ -4,6 +4,7 @@ import DisplayEmail from './components/DisplayEmail';
 import DisplayPhone from './components/DisplayPhone';
 import DisplayEdu from './components/DisplayEdu';
 import DisplayJobs from './components/DisplayJobs';
+import EditEdu from './components/EditEdu';
 import GenForm from './components/GenForm';
 import Schooling from './components/Schooling';
 import WorkForm from './components/WorkForm';
@@ -29,6 +30,8 @@ class App extends Component {
     this.startWorkHandler = this.startWorkHandler.bind(this);
     this.endWorkHandler = this.endWorkHandler.bind(this);
     this.onWorkSubmit = this.onWorkSubmit.bind(this);
+
+    this.outerClick = this.outerClick.bind(this);
   
     this.state = {
       userName: "",
@@ -50,6 +53,13 @@ class App extends Component {
       startWork: "",
       endWork: "",
       finalJobs: [],
+      editEdu: {
+        school: "",
+        study: "",
+        startSchool: "",
+        endSchool: "",
+        id: "",
+      }
     }
   }
 
@@ -94,34 +104,49 @@ class App extends Component {
 
   onEduSubmit = (e) => {
     e.preventDefault();
-    let startStrSplit = this.state.startSchool.toString().split(" ");
-    let endStrSplit = this.state.endSchool.toString().split(" ");
-    let startStr = startStrSplit.slice(1,4);
+    if (this.state.startSchool === "" || this.state.endSchool === "") {
+      alert("Please enter a start and end date for your education!");
+      return;
+    }
+    let startStrSplit;
+    let endStrSplit;
     let startStrHolder = "";
-    for (let i = 0; i < 3; i++) {
-      let str = startStr[i].toString();
-      if (typeof str === "number") {
-        str = Number(str);
-      }
-      if (i === 2) {
-        startStrHolder = startStrHolder + str;
-      } else {
-        startStrHolder = startStrHolder + str + " ";
-      }
-    }
-    let endStr = endStrSplit.slice(1,4);
     let endStrHolder = "";
-    for (let i = 0; i < 3; i++) {
-      let str = endStr[i].toString();
-      if (typeof str === "number") {
-        str = Number(str);
-      }
-      if (i === 2) {
-        endStrHolder = endStrHolder + str;
-      } else {
-        endStrHolder = endStrHolder + str + " ";
+    if (this.state.startSchool !== "") {
+      startStrSplit = this.state.startSchool.toString().split(" ");
+      let startStr = startStrSplit.slice(1,4);
+      for (let i = 0; i < 3; i++) {
+        let str = startStr[i].toString();
+        if (typeof str === "number") {
+          str = Number(str);
+        }
+        if (i === 2) {
+          startStrHolder = startStrHolder + str;
+        } else if (i === 1) {
+          startStrHolder = startStrHolder + str + ", ";
+        } else {
+          startStrHolder = startStrHolder + str + " ";
+        }
       }
     }
+    if (this.state.endSchool !== "") {
+      endStrSplit = this.state.endSchool.toString().split(" ");
+      let endStr = endStrSplit.slice(1,4);
+      for (let i = 0; i < 3; i++) {
+        let str = endStr[i].toString();
+        if (typeof str === "number") {
+          str = Number(str);
+        }
+        if (i === 2) {
+          endStrHolder = endStrHolder + str;
+        } else if (i === 1) {
+          endStrHolder = endStrHolder + str + ", ";
+        } else {
+          endStrHolder = endStrHolder + str + " ";
+        }
+      }
+    }
+    
     this.setState({
         school: "",
         study: "",
@@ -133,6 +158,8 @@ class App extends Component {
             startSchool: startStrHolder,
             endSchool: endStrHolder,
             id: uniqid(),
+            datePickerStart: this.state.startSchool,
+            datePickerEnd: this.state.endSchool,
         })
     }, () => {console.log(this.state.finalEdu)})
   }
@@ -154,6 +181,10 @@ class App extends Component {
   }
   onWorkSubmit = (e) => {
     e.preventDefault();
+    if (this.state.startWork === "" || this.state.endWork === "") {
+      alert("Please enter a start and end date for your work experience!");
+      return;
+    }
     let startStrSplit = this.state.startWork.toString().split(" ");
     let endStrSplit = this.state.endWork.toString().split(" ");
     let startStr = startStrSplit.slice(1,4);
@@ -165,6 +196,8 @@ class App extends Component {
       }
       if (i === 2) {
         startStrHolder = startStrHolder + str;
+      } else if (i === 1) {
+        startStrHolder = startStrHolder + str + ", ";
       } else {
         startStrHolder = startStrHolder + str + " ";
       }
@@ -178,6 +211,8 @@ class App extends Component {
       }
       if (i === 2) {
         endStrHolder = endStrHolder + str;
+      } else if (i === 1) {
+        endStrHolder = endStrHolder + str + ", ";
       } else {
         endStrHolder = endStrHolder + str + " ";
       }
@@ -199,10 +234,27 @@ class App extends Component {
   }, () => {console.log(this.state.finalJobs)})
   }
 
+  outerClick = (child) => {
+    console.log("OUTER button works too");
+    console.log(child.startSchool);
+    this.setState({
+      editEdu: {
+        school: child.school,
+        study: child.study,
+        startSchool: child.startSchool,
+        endSchool: child.endSchool,
+        id: child.id,
+        datePickerStart: child.datePickerStart,
+        datePickerEnd: child.datePickerEnd,
+      }
+    })
+  }
+
   render() {
 
     return (
       <div className="overall">
+        <EditEdu editEdu={this.state.editEdu}/>
         <div className="top">
           <div className="formHolder">
             <GenForm onUserNameChange={this.getUserNameInfo} onEmailChange={this.getEmailInfo} onPhoneChange={this.getPhoneInfo} userName={this.state.userName}  email={this.state.email} phone={this.state.phone} /> 
@@ -233,7 +285,7 @@ class App extends Component {
           </div>
           <div className="spaceCV">
             <div className="description">Education</div>
-            <DisplayEdu finalEdu={this.state.finalEdu} />
+            <DisplayEdu finalEdu={this.state.finalEdu} outerClick={this.outerClick}/>
           </div>
           <div className="spaceCV">
             <div className="description">Work Experience</div>
