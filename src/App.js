@@ -31,6 +31,10 @@ class App extends Component {
     this.endWorkHandler = this.endWorkHandler.bind(this);
     this.onWorkSubmit = this.onWorkSubmit.bind(this);
 
+    this.schoolEditChangeHandler = this.schoolEditChangeHandler.bind(this);
+    this.studyEditChangeHandler = this.studyEditChangeHandler.bind(this);
+    this.schoolEditStartHandler = this.schoolEditStartHandler.bind(this);
+    this.schoolEditEndHandler = this.schoolEditEndHandler.bind(this);
     this.outerClick = this.outerClick.bind(this);
   
     this.state = {
@@ -53,13 +57,13 @@ class App extends Component {
       startWork: "",
       endWork: "",
       finalJobs: [],
-      editEdu: {
-        school: "",
-        study: "",
-        startSchool: "",
-        endSchool: "",
-        id: "",
-      }
+      editEduSchool: "",
+      editEduStudy: "",
+      editEduStartSchool: "",
+      editEduEndSchool: "",
+      editEduID: "",
+      editEduDatePickerStart: "",
+      editEduDatePickerEnd: "",
     }
   }
 
@@ -231,22 +235,32 @@ class App extends Component {
         endWork: endStrHolder,
         id: uniqid(),
       })
-  }, () => {console.log(this.state.finalJobs)})
+    }, () => {console.log(this.state.finalJobs)})
   }
 
+
+  schoolEditChangeHandler(editEduSchool) {
+    this.setState({editEduSchool})
+  }
+  studyEditChangeHandler(editEduStudy) {
+    this.setState({editEduStudy})
+  }
+  schoolEditStartHandler(editEduDatePickerStart) {
+    this.setState({editEduDatePickerStart})
+  }
+  schoolEditEndHandler(editEduDatePickerEnd) {
+    this.setState({editEduDatePickerEnd}, () => {console.log(this.state.editEduDatePickerEnd)})
+  }
   outerClick = (child) => {
     console.log("OUTER button works too");
-    console.log(child.startSchool);
     this.setState({
-      editEdu: {
-        school: child.school,
-        study: child.study,
-        startSchool: child.startSchool,
-        endSchool: child.endSchool,
-        id: child.id,
-        datePickerStart: child.datePickerStart,
-        datePickerEnd: child.datePickerEnd,
-      }
+      editEduSchool: child.school,
+      editEduStudy: child.study,
+      editEduStartSchool: child.startSchool,
+      editEduEndSchool: child.endSchool,
+      editEduID: child.id,
+      editEduDatePickerStart: child.datePickerStart,
+      editEduDatePickerEnd: child.datePickerEnd,
     })
   }
 
@@ -254,7 +268,7 @@ class App extends Component {
 
     return (
       <div className="overall">
-        <EditEdu editEdu={this.state.editEdu}/>
+        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} />
         <div className="top">
           <div className="formHolder">
             <GenForm onUserNameChange={this.getUserNameInfo} onEmailChange={this.getEmailInfo} onPhoneChange={this.getPhoneInfo} userName={this.state.userName}  email={this.state.email} phone={this.state.phone} /> 
