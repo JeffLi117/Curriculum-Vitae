@@ -64,6 +64,7 @@ div.formHolder {
     border: 2px solid black;
     padding: 0.75rem;
     margin: 0.5rem;
+    min-width: 30%;
 }
 
 div.spaceCV {
@@ -118,11 +119,24 @@ div.displayCV {
     margin: 0.5rem;
 }
 
-button {
+div.formHolder > button {
     position: absolute;
     bottom: 5px;
     left: 5px;
     margin: 0.4rem;
+}
+
+div.eachEduHolder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+div.eduRight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div.cols {
@@ -142,4 +156,8 @@ li {
 
 li.workList {
     border: 3px groove rgb(0, 187, 0);
+}
+
+textarea {
+    resize: vertical;
 }

@@ -7,9 +7,17 @@ const DisplayEdu = (props) => {
         <ul>
             {finalEdu.map((schoo) => {
                 return (
-                <li key={schoo.id} className="eduList">{schoo.school}<br></br>
-                {schoo.study}<br></br>
-                From {schoo.startSchool} to {schoo.endSchool}</li>
+                    <div key={schoo.id} className="eachEduHolder">
+                        <div className="eduLeft">
+                            <li className="eduList">{schoo.school}<br></br>
+                            {schoo.study}<br></br>
+                            From {schoo.startSchool} to {schoo.endSchool}</li>
+                        </div>
+                        <div className="eduRight">
+                            <button type="button">Edit</button>
+                        </div>
+                        
+                    </div>
                 )
             })}
         </ul>
