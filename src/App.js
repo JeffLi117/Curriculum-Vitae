@@ -9,6 +9,7 @@ import EditJob from './components/EditJob';
 import GenForm from './components/GenForm';
 import Schooling from './components/Schooling';
 import WorkForm from './components/WorkForm';
+import Question from './components/Question';
 import React, { Component } from 'react';
 import uniqid from "uniqid";
 
@@ -390,9 +391,9 @@ class App extends Component {
 
     return (
       <div className="overall">
-        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} changeAnEdu={this.changeEdu} cancelEdu={this.cancelEdu} />
-        {/* FIX THE PART BELOW */}
-        
+        <div className="header">Create Your CV!</div>
+        <Question />
+        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} changeAnEdu={this.changeEdu} cancelEdu={this.cancelEdu} />        
         <EditJob compEditChangeHandler={this.compEditChangeHandler} positEditChangeHandler={this.positEditChangeHandler} mainTaskEditChangeHandler={this.mainTaskEditChangeHandler} jobEditStartHandler={this.jobEditStartHandler} jobEditEndHandler={this.jobEditEndHandler} editJobComp={this.state.editJobComp}  editJobPosit={this.state.editJobPosit} editJobMainTasks={this.state.editJobMainTasks} editJobStart={this.state.editJobStart} editJobEnd={this.state.editJobEnd} editJobDatePickerStart={this.state.editJobDatePickerStart} editJobDatePickerEnd={this.state.editJobDatePickerEnd} id={this.state.editJobID} changeJob={this.changeJob} cancelJob={this.cancelJob} />
         <div className="top">
           <div className="formHolder">
@@ -415,20 +416,25 @@ class App extends Component {
           </div>
         </div>
         <div className="middleToCV">Your beautiful CV</div>
+        <div className="line"></div>
         <div className="displayCV">
-          <div className="spaceCV">
+          <div className="spaceCV firstGen">
             <div className="description">General Information</div>
-            <DisplayName info={this.state.final}/>
-            <DisplayEmail info={this.state.final}/>
-            <DisplayPhone info={this.state.final}/>
+              <DisplayName info={this.state.final}/>
+              <DisplayEmail info={this.state.final}/>
+              <DisplayPhone info={this.state.final}/>
           </div>
           <div className="spaceCV">
             <div className="description">Education</div>
-            <DisplayEdu finalEdu={this.state.finalEdu} outerClick={this.outerClick}/>
+            <div className="underDescription">
+              <DisplayEdu finalEdu={this.state.finalEdu} outerClick={this.outerClick}/>
+            </div>
           </div>
           <div className="spaceCV">
             <div className="description">Work Experience</div>
-            <DisplayJobs finalJobs={this.state.finalJobs} outerJobClick={this.outerJobClick} />
+            <div className="underDescription">
+              <DisplayJobs finalJobs={this.state.finalJobs} outerJobClick={this.outerJobClick} />
+            </div>
           </div>
         </div>
       </div>

@@ -26,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
     font-family: 'Mukta', sans-serif;
+    background-color: antiquewhite;
 }
 ol, ul {
 	list-style: none;
@@ -42,7 +43,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 
 div#root {
     display: flex;
@@ -61,6 +61,67 @@ div.overall {
     width: 100%;
 }
 
+div.header {
+    font-size: 2.4rem;
+    margin-top: 0.4rem;
+}
+
+div.questionHolder {
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    background-color: burlywood;
+    opacity: 0.8;
+    z-index: 22;
+}
+
+div.withX {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+div.questionHolder:hover {
+    box-shadow: 2px 2px 3px 2px rgba(0,0,0,.45);
+    background-color: black;
+    color:white;
+}
+
+div.questionHidden {
+    background-color: rgb(255, 172, 71);
+    display: flex;
+    position: absolute;
+    text-align: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+    padding: 1.5rem;
+    border: 3px solid orangered;
+}
+
+div.questionLines {
+    margin-top: 10px;
+    font-size: 1.5rem;
+}
+
+div.ask {
+    font-size: 1.7rem;
+    font-weight: bolder;
+}
+
+.imgContainer {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+img {
+    width: 1.3rem;
+}
+
 div.formHolder {
     position: relative;
     border: 2px solid black;
@@ -69,16 +130,34 @@ div.formHolder {
     min-width: 35%;
 }
 
+input, textarea {
+    background-color: rgb(255, 220, 177);
+    font-family: 'Mukta', sans-serif;
+}
+
+.line {
+    margin:5px 0;
+    margin-bottom: 2rem;
+    height:2px;
+    width: 100%;
+    background:
+      repeating-linear-gradient(90deg,rgba(0, 0, 0, 0.5) 0 5px,#0000 0 7px)
+      /*5px red then 2px transparent -> repeat this!*/
+}
+
 div.spaceCV {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    border: 3px dotted purple;
-    gap: 0.5rem;
+    border: 3.4px inset orangered;
     margin: 1rem;
     margin-bottom: 1.5rem;
     padding: 0.5rem;
+}
+
+div.underDescription, div.firstGen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 div.top {
@@ -105,7 +184,7 @@ div.outer {
 div.description {
     display: flex;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     font-style: oblique;
 }
 
@@ -145,7 +224,7 @@ div.eachEduHolder {
     justify-content: space-between;
     padding: 0.25rem;
     gap: 1.5rem;
-    border: 3px groove rgb(0, 187, 0);
+    border: 3px groove #a83042;
     margin: 12px 0;
 }
 
@@ -194,12 +273,12 @@ div.cols {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    align-items: flex-start;
+    align-items: center;
 }
 
 li {
     list-style-type: none;
-    border: 2px inset rgb(255, 63, 249);
+    border: 2px inset #efa00b;
     margin: 0.4rem;
     padding: 0.4rem;
     white-space: pre-wrap;
@@ -213,6 +292,28 @@ button {
     font-family: 'Aboreto', cursive;
     font-weight: bolder;
     padding: 3px;
+    background-color: burlywood;
+}
+
+button:hover {
+    background: orangered;
+    color: white;
+    box-shadow: 2px 2px 4px 2px rgba(0,0,0,.45);
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: rgb(105, 54, 0);
+}
+
+a:hover {
+    text-decoration: none;
+    color: orangered; 
+}
+
+a:active {
+    text-decoration: none;
+    color: #efa00b;
 }
 
 /* for smaller screens, make div.formHolder not 3 columns side by side, but rather one column overall
@@ -228,5 +329,8 @@ button {
     div.formHolder {
         min-width: 55%;
         max-height: 95vh;
+    }
+    div.cols {
+        margin: 1.5rem 0;
     }
 }

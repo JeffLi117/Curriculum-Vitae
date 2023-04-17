@@ -49,7 +49,7 @@ class WorkForm extends Component {
                             <label htmlFor="positionInput">Position Title</label>
                             <input type="text" id="positionInput" value={position} onChange={this.positionHandleChange}/>
                             <label htmlFor="mainTasksInput">Main Tasks</label>
-                            <textarea name="main_task" id="mainTasksInput" cols="24" rows="10" value={mainTasks} onChange={this.mainTasksHandleChange}></textarea>
+                            <textarea name="main_task" id="mainTasksInput" cols="22" rows="8" value={mainTasks} onChange={this.mainTasksHandleChange}></textarea>
                             <label htmlFor="startInput">Start Date</label>
                             <DatePicker showIcon selected={startWork} onChange={this.workStartHandleChange} />
                             <label htmlFor="endInput">End Date</label>
