@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Mukta&display=swap');
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -23,6 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    font-family: 'Mukta', sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -72,6 +75,7 @@ div.spaceCV {
     justify-content: center; 
     align-items: center;
     border: 3px dotted purple;
+    gap: 0.5rem;
     margin: 1rem;
     margin-bottom: 1.5rem;
     padding: 0.5rem;
@@ -94,6 +98,8 @@ div.outer {
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
+    box-sizing:border-box;
+    max-height: fit-content;
 }
 
 div.description {
@@ -126,15 +132,21 @@ div.displayCV {
 div.formHolder > button {
     position: absolute;
     bottom: 5px;
-    left: 5px;
-    margin: 0.4rem;
+    left: 0; 
+    right: 0; 
+    margin: 0.4rem auto;
+    width:fit-content;
 }
 
 div.eachEduHolder {
     display: flex;
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
+    padding: 0.25rem;
     gap: 1.5rem;
+    border: 3px groove rgb(0, 187, 0);
+    margin: 12px 0;
 }
 
 div.editEduHolder {
@@ -175,6 +187,7 @@ div.eduRight {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.4rem;
 } 
 
 div.cols {
@@ -192,14 +205,28 @@ li {
     white-space: pre-wrap;
 }
 
-li.workList {
-    border: 3px groove rgb(0, 187, 0);
-}
-
 textarea {
     resize: vertical;
 }
 
+button {
+    font-family: 'Aboreto', cursive;
+    font-weight: bolder;
+    padding: 3px;
+}
 
 /* for smaller screens, make div.formHolder not 3 columns side by side, but rather one column overall
 */
+
+@media only screen and (max-width: 850px) {
+    div.top {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    div.formHolder {
+        min-width: 55%;
+        max-height: 95vh;
+    }
+}

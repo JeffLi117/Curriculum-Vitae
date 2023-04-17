@@ -5,6 +5,7 @@ import DisplayPhone from './components/DisplayPhone';
 import DisplayEdu from './components/DisplayEdu';
 import DisplayJobs from './components/DisplayJobs';
 import EditEdu from './components/EditEdu';
+import EditJob from './components/EditJob';
 import GenForm from './components/GenForm';
 import Schooling from './components/Schooling';
 import WorkForm from './components/WorkForm';
@@ -36,6 +37,13 @@ class App extends Component {
     this.schoolEditStartHandler = this.schoolEditStartHandler.bind(this);
     this.schoolEditEndHandler = this.schoolEditEndHandler.bind(this);
     this.outerClick = this.outerClick.bind(this);
+
+    this.compEditChangeHandler = this.compEditChangeHandler.bind(this);
+    this.positEditChangeHandler = this.positEditChangeHandler.bind(this);
+    this.mainTaskEditChangeHandler = this.mainTaskEditChangeHandler.bind(this);
+    this.jobEditStartHandler = this.jobEditStartHandler.bind(this);
+    this.jobEditEndHandler = this.jobEditEndHandler.bind(this);
+    this.outerJobClick = this.outerJobClick.bind(this);
   
     this.state = {
       userName: "",
@@ -64,6 +72,14 @@ class App extends Component {
       editEduID: "",
       editEduDatePickerStart: "",
       editEduDatePickerEnd: "",
+      editJobComp: "",
+      editJobPosit: "",
+      editJobMainTasks: "",
+      editJobStart: "",
+      editJobEnd: "",
+      editJobID: "",
+      editJobDatePickerStart: "",
+      editJobDatePickerEnd: "",
     }
   }
 
@@ -234,6 +250,8 @@ class App extends Component {
         startWork: startStrHolder,
         endWork: endStrHolder,
         id: uniqid(),
+        datePickerStart: this.state.startWork,
+        datePickerEnd: this.state.endWork,
       })
     }, () => {console.log(this.state.finalJobs)})
   }
@@ -249,37 +267,46 @@ class App extends Component {
     this.setState({editEduDatePickerStart})
   }
   schoolEditEndHandler(editEduDatePickerEnd) {
-    this.setState({editEduDatePickerEnd}, () => {console.log(this.state.editEduDatePickerEnd)})
+    this.setState({editEduDatePickerEnd})
   }
-  changeEdu = (child) => {
-    console.log("Button works...??");
-    console.log(child);
+  changeEdu = () => {
     console.log(this.state.finalEdu); /*an array of obj's */
     let finalEdu = [...this.state.finalEdu];
     console.log(finalEdu);
     /* let found = finalEdu.find(element => element.id === child.id);
     console.log(found); */
-    let foundIndex = finalEdu.findIndex(element => element.id === child.id);
-    console.log("editEduID is ", this.state.editEduID);
+    let foundIndex = finalEdu.findIndex(element => element.id === this.state.editEduID);
+    //console.log("editEduID is ", this.state.editEduID);
     let foundSchoolInfo = {...finalEdu[foundIndex]};
     console.log(foundSchoolInfo);
-    foundSchoolInfo.school = child.school;
-    foundSchoolInfo.study = child.study;
-    foundSchoolInfo.startSchool = child.startSchool;
-    foundSchoolInfo.endSchool = child.endSchool;
+    foundSchoolInfo.school = this.state.editEduSchool;
+    foundSchoolInfo.study = this.state.editEduStudy;
+    foundSchoolInfo.startSchool = this.state.editEduStartSchool;
+    foundSchoolInfo.endSchool = this.state.editEduEndSchool;
     /* FIX THE DATES FOR START/END
     CAN ALSO: consider changing reference to child -- is it necessary or should I just use this.state stuff??? */
     finalEdu[foundIndex] = foundSchoolInfo;
-    this.setState({ finalEdu }, () => {console.log(this.state.finalEdu)})
-    /* this.setState({
-      editEduSchool: child.school,
-      editEduStudy: child.study,
-      editEduStartSchool: child.startSchool,
-      editEduEndSchool: child.endSchool,
-      editEduID: child.id,
-      editEduDatePickerStart: child.datePickerStart,
-      editEduDatePickerEnd: child.datePickerEnd,
-    }) */
+    this.setState({ 
+      finalEdu,
+      editEduSchool: "",
+      editEduStudy: "",
+      editEduStartSchool: "",
+      editEduEndSchool: "",
+      editEduID: "",
+      editEduDatePickerStart: "",
+      editEduDatePickerEnd: "",
+    }, () => {console.log(this.state.finalEdu)})
+  }
+  cancelEdu = () => {
+    this.setState({
+      editEduSchool: "",
+      editEduStudy: "",
+      editEduStartSchool: "",
+      editEduEndSchool: "",
+      editEduID: "",
+      editEduDatePickerStart: "",
+      editEduDatePickerEnd: "",
+    })  
   }
   outerClick = (child) => {
     this.setState({
@@ -293,11 +320,80 @@ class App extends Component {
     })
   }
 
+  compEditChangeHandler(editJobComp) {
+    this.setState({editJobComp})
+  }
+  positEditChangeHandler(editJobPosit) {
+    this.setState({editJobPosit})
+  }
+  mainTaskEditChangeHandler(editJobMainTasks) {
+    this.setState({editJobMainTasks})
+  }
+  jobEditStartHandler(editJobDatePickerStart) {
+    this.setState({editJobDatePickerStart})
+  }
+  jobEditEndHandler(editJobDatePickerEnd) {
+    this.setState({editJobDatePickerEnd})
+  }
+  changeJob = () => {
+    console.log(this.state.finalJobs); /*an array of obj's */
+    let finalJobs = [...this.state.finalJobs];
+    console.log(finalJobs);
+    let foundIndex = finalJobs.findIndex(element => element.id === this.state.editJobID);
+    //console.log("editJobID is ", this.state.editEduID);
+    let foundJobInfo = {...finalJobs[foundIndex]};
+    console.log(foundJobInfo);
+    foundJobInfo.company = this.state.editJobComp;
+    foundJobInfo.position = this.state.editJobPosit;
+    foundJobInfo.mainTasks = this.state.editJobMainTasks;
+    foundJobInfo.startWork = this.state.editJobStart;
+    foundJobInfo.endWork = this.state.editJobEnd;
+    finalJobs[foundIndex] = foundJobInfo;
+    this.setState({ 
+      finalJobs,
+      editJobComp: "",
+      editJobPosit: "",
+      editJobMainTasks: "",
+      editJobStart: "",
+      editJobEnd: "",
+      editJobID: "",
+      editJobDatePickerStart: "",
+      editJobDatePickerEnd: "",
+    }, () => {console.log(this.state.finalJobs)})
+  }
+  cancelJob = () => {
+    this.setState({
+      editJobComp: "",
+      editJobPosit: "",
+      editJobMainTasks: "",
+      editJobStart: "",
+      editJobEnd: "",
+      editJobID: "",
+      editJobDatePickerStart: "",
+      editJobDatePickerEnd: "",
+    })  
+  }
+  outerJobClick = (child) => {
+    this.setState({
+      editJobComp: child.company,
+      editJobPosit: child.position,
+      editJobMainTasks: child.mainTasks,
+      editJobStart: child.startWork,
+      editJobEnd: child.endWork,
+      editJobID: child.id,
+      editJobDatePickerStart: child.datePickerStart,
+      editJobDatePickerEnd: child.datePickerEnd,
+    }, () => {console.log(this.state)})
+  }
+
   render() {
 
     return (
       <div className="overall">
-        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} changeAnEdu={this.changeEdu} />
+        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} changeAnEdu={this.changeEdu} cancelEdu={this.cancelEdu} />
+        {/* FIX THE PART BELOW */}
+        
+        <EditJob compEditChangeHandler={this.compEditChangeHandler} positEditChangeHandler={this.positEditChangeHandler} mainTaskEditChangeHandler={this.mainTaskEditChangeHandler} jobEditStartHandler={this.jobEditStartHandler} jobEditEndHandler={this.jobEditEndHandler} editJobComp={this.state.editJobComp}  editJobPosit={this.state.editJobPosit} editJobMainTasks={this.state.editJobMainTasks} editJobStart={this.state.editJobStart} editJobEnd={this.state.editJobEnd} editJobDatePickerStart={this.state.editJobDatePickerStart} editJobDatePickerEnd={this.state.editJobDatePickerEnd} id={this.state.editJobID} changeJob={this.changeJob} cancelJob={this.cancelJob} />
         <div className="top">
           <div className="formHolder">
             <GenForm onUserNameChange={this.getUserNameInfo} onEmailChange={this.getEmailInfo} onPhoneChange={this.getPhoneInfo} userName={this.state.userName}  email={this.state.email} phone={this.state.phone} /> 
@@ -332,7 +428,7 @@ class App extends Component {
           </div>
           <div className="spaceCV">
             <div className="description">Work Experience</div>
-            <DisplayJobs finalJobs={this.state.finalJobs} />
+            <DisplayJobs finalJobs={this.state.finalJobs} outerJobClick={this.outerJobClick} />
           </div>
         </div>
       </div>

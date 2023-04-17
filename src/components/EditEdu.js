@@ -10,7 +10,8 @@ class EditEdu extends Component {
       this.studyEditHandleChange = this.studyEditHandleChange.bind(this);
       this.schoolEditStartHandleChange = this.schoolEditStartHandleChange.bind(this);
       this.schoolEditEndHandleChange = this.schoolEditEndHandleChange.bind(this);
-      this.schoolEditEndHandleChange = this.schoolEditEndHandleChange.bind(this);
+      this.confirmSchoolEditChange = this.confirmSchoolEditChange.bind(this);
+      this.cancelSchoolEditChange = this.cancelSchoolEditChange.bind(this);
     }
 
     schoolEditHandleChange = (e) => {
@@ -30,22 +31,17 @@ class EditEdu extends Component {
     }
 
     confirmSchoolEditChange = () => {
-        const returnObj = {
-            school: this.props.school,
-            study: this.props.study,
-            datePickerStart: this.props.editEduDatePickerStart,
-            datePickerEnd: this.props.editEduDatePickerEnd,
-            id: this.props.id,
-        }
-        this.props.changeAnEdu(returnObj);
+        this.props.changeAnEdu();
+    }
+
+    cancelSchoolEditChange = () => {
+        this.props.cancelEdu();
     }
 
   render() {
-    const school = this.props.school;
-    const study = this.props.study;
+    const { school, study, id} = this.props;
     const datePickerStart = this.props.editEduDatePickerStart;
     const datePickerEnd = this.props.editEduDatePickerEnd;
-    const id = this.props.id;
 
     if (school === "" && study === "" && datePickerStart === "" && datePickerEnd === "" && id === "") {
     } else {
@@ -62,8 +58,7 @@ class EditEdu extends Component {
                     <DatePicker showIcon selected={datePickerEnd} onChange={this.schoolEditEndHandleChange} />
                     <div className="editBtnHolder">
                         <button type="button" onClick={this.confirmSchoolEditChange}>Save Changes</button>
-                        {/* MAKE THIS BUTTON HAVE FUNCTIONALITY */}
-                        <button type="button">Cancel</button>
+                        <button type="button" onClick={this.cancelSchoolEditChange}>Cancel</button>
                     </div>
                 </div>                    
             </div>
