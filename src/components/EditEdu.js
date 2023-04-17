@@ -10,6 +10,7 @@ class EditEdu extends Component {
       this.studyEditHandleChange = this.studyEditHandleChange.bind(this);
       this.schoolEditStartHandleChange = this.schoolEditStartHandleChange.bind(this);
       this.schoolEditEndHandleChange = this.schoolEditEndHandleChange.bind(this);
+      this.schoolEditEndHandleChange = this.schoolEditEndHandleChange.bind(this);
     }
 
     schoolEditHandleChange = (e) => {
@@ -26,6 +27,17 @@ class EditEdu extends Component {
 
     schoolEditEndHandleChange = (e) => {
         this.props.onSchoolEditEndChange(e);
+    }
+
+    confirmSchoolEditChange = () => {
+        const returnObj = {
+            school: this.props.school,
+            study: this.props.study,
+            datePickerStart: this.props.editEduDatePickerStart,
+            datePickerEnd: this.props.editEduDatePickerEnd,
+            id: this.props.id,
+        }
+        this.props.changeAnEdu(returnObj);
     }
 
   render() {
@@ -48,7 +60,11 @@ class EditEdu extends Component {
                     <DatePicker showIcon selected={datePickerStart} onChange={this.schoolEditStartHandleChange} />
                     <label htmlFor="endInputEdit">End Date</label>
                     <DatePicker showIcon selected={datePickerEnd} onChange={this.schoolEditEndHandleChange} />
-                    <button type="button">Save Changes</button>
+                    <div className="editBtnHolder">
+                        <button type="button" onClick={this.confirmSchoolEditChange}>Save Changes</button>
+                        {/* MAKE THIS BUTTON HAVE FUNCTIONALITY */}
+                        <button type="button">Cancel</button>
+                    </div>
                 </div>                    
             </div>
         )

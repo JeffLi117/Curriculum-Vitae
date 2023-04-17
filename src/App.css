@@ -40,16 +40,12 @@ table {
 	border-spacing: 0;
 }
 
-body {
-    height: 100vh;
-}
 
 div#root {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
-    height: 100%;
 }
 
 div.overall {
@@ -58,7 +54,7 @@ div.overall {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100%;
+    height: inherit;
     width: 100%;
 }
 
@@ -67,7 +63,7 @@ div.formHolder {
     border: 2px solid black;
     padding: 0.75rem;
     margin: 0.5rem;
-    min-width: 30%;
+    min-width: 35%;
 }
 
 div.spaceCV {
@@ -90,6 +86,7 @@ div.top {
 
 div.top, div.middleToCV, div.displayCV {
     width: 75%;
+    box-sizing:border-box;
 }
 
 div.outer {
@@ -146,11 +143,11 @@ div.editEduHolder {
     flex-direction: column;
     justify-content: center; 
     align-items: center;
+    box-sizing:border-box;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 2rem;
     height: 100%;
     margin: auto;
     text-align: center;
@@ -167,11 +164,18 @@ li.editingEdu {
     background: rgb(0,0,0,0.2);
 }
 
+div.editBtnHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 div.eduRight {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} 
 
 div.cols {
     display: flex;
@@ -195,3 +199,7 @@ li.workList {
 textarea {
     resize: vertical;
 }
+
+
+/* for smaller screens, make div.formHolder not 3 columns side by side, but rather one column overall
+*/

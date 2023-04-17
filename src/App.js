@@ -251,8 +251,37 @@ class App extends Component {
   schoolEditEndHandler(editEduDatePickerEnd) {
     this.setState({editEduDatePickerEnd}, () => {console.log(this.state.editEduDatePickerEnd)})
   }
+  changeEdu = (child) => {
+    console.log("Button works...??");
+    console.log(child);
+    console.log(this.state.finalEdu); /*an array of obj's */
+    let finalEdu = [...this.state.finalEdu];
+    console.log(finalEdu);
+    /* let found = finalEdu.find(element => element.id === child.id);
+    console.log(found); */
+    let foundIndex = finalEdu.findIndex(element => element.id === child.id);
+    console.log("editEduID is ", this.state.editEduID);
+    let foundSchoolInfo = {...finalEdu[foundIndex]};
+    console.log(foundSchoolInfo);
+    foundSchoolInfo.school = child.school;
+    foundSchoolInfo.study = child.study;
+    foundSchoolInfo.startSchool = child.startSchool;
+    foundSchoolInfo.endSchool = child.endSchool;
+    /* FIX THE DATES FOR START/END
+    CAN ALSO: consider changing reference to child -- is it necessary or should I just use this.state stuff??? */
+    finalEdu[foundIndex] = foundSchoolInfo;
+    this.setState({ finalEdu }, () => {console.log(this.state.finalEdu)})
+    /* this.setState({
+      editEduSchool: child.school,
+      editEduStudy: child.study,
+      editEduStartSchool: child.startSchool,
+      editEduEndSchool: child.endSchool,
+      editEduID: child.id,
+      editEduDatePickerStart: child.datePickerStart,
+      editEduDatePickerEnd: child.datePickerEnd,
+    }) */
+  }
   outerClick = (child) => {
-    console.log("OUTER button works too");
     this.setState({
       editEduSchool: child.school,
       editEduStudy: child.study,
@@ -268,7 +297,7 @@ class App extends Component {
 
     return (
       <div className="overall">
-        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} />
+        <EditEdu onSchoolEditChange={this.schoolEditChangeHandler} onStudyEditChange={this.studyEditChangeHandler} onSchoolEditStartChange={this.schoolEditStartHandler} onSchoolEditEndChange={this.schoolEditEndHandler} school={this.state.editEduSchool}  study={this.state.editEduStudy} startSchool={this.state.editEduStartSchool} endSchool={this.state.editEduEndSchool} editEduDatePickerStart={this.state.editEduDatePickerStart} editEduDatePickerEnd={this.state.editEduDatePickerEnd} id={this.state.editEduID} changeAnEdu={this.changeEdu} />
         <div className="top">
           <div className="formHolder">
             <GenForm onUserNameChange={this.getUserNameInfo} onEmailChange={this.getEmailInfo} onPhoneChange={this.getPhoneInfo} userName={this.state.userName}  email={this.state.email} phone={this.state.phone} /> 
