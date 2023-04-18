@@ -60,7 +60,7 @@ export class Question extends Component {
                 <a href="https://www.youtube.com/watch?v=alP-rXCQFfg">Who am I?</a>
               </div>
               <div className="questionLines">
-                A self-taught programmer with a sense of humor + aspirations to make something entertaining/useful for others. <br></br>Head <a href="https://github.com/JeffLi117">here</a> to check out my other projects!
+                A self-taught programmer with aspirations to make something entertaining/useful for others. <br></br>Head <a href="https://github.com/JeffLi117">here</a> to check out my other projects!
               </div>
             </div>
           </div>

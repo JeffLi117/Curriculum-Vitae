@@ -74,7 +74,7 @@ div.questionHolder {
     padding: 5px;
     background-color: burlywood;
     opacity: 0.8;
-    z-index: 22;
+    z-index: 31;
 }
 
 div.withX {
@@ -93,13 +93,14 @@ div.questionHidden {
     background-color: rgb(255, 172, 71);
     display: flex;
     position: absolute;
+    top: 200px;
     text-align: center;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 70%;
     padding: 1.5rem;
-    border: 3px solid orangered;
+    border: 3px solid burlywood;
 }
 
 div.questionLines {
@@ -114,7 +115,8 @@ div.ask {
 
 .imgContainer {
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
 }
 
@@ -182,10 +184,9 @@ div.outer {
 }
 
 div.description {
-    display: flex;
-    justify-content: center;
     font-size: 1.55rem;
     font-style: oblique;
+    text-align: center;
 }
 
 div.topForms {
@@ -206,6 +207,7 @@ div.displayCV {
     border: 2px solid black;
     padding: 0.75rem;
     margin: 0.5rem;
+    max-width: 750px;
 }
 
 div.formHolder > button {
@@ -222,10 +224,12 @@ div.eachEduHolder {
     position: relative;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 0.25rem;
     gap: 1.5rem;
-    border: 3px groove #a83042;
     margin: 12px 0;
+    width: fit-content;
+    border: 2px inset #efa00b;
 }
 
 div.editEduHolder {
@@ -247,8 +251,11 @@ div.editEduHolder {
 }
 
 div.editEduHolder > div.cols {
+    position: absolute;
+    bottom: 150px;
     background: beige;
     padding: 4rem;
+
 }
 
 li.editingEdu {
@@ -278,7 +285,6 @@ div.cols {
 
 li {
     list-style-type: none;
-    border: 2px inset #efa00b;
     margin: 0.4rem;
     padding: 0.4rem;
     white-space: pre-wrap;
@@ -319,7 +325,10 @@ a:active {
 /* for smaller screens, make div.formHolder not 3 columns side by side, but rather one column overall
 */
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 905px) {
+    div#root {
+        font-size: 16px;
+    }
     div.top {
         display: flex;
         flex-direction: column;
@@ -332,5 +341,24 @@ a:active {
     }
     div.cols {
         margin: 1.5rem 0;
+    }
+    div.displayCV {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    div.displayCV {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 455px) {
+    div#root {
+        font-size: 14px;
+    }
+    div.displayCV {
+        width: 100%;
+        border: 0px solid black;
     }
 }
